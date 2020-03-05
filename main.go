@@ -30,11 +30,12 @@ import (
 	"github.com/shurcooL/github_flavored_markdown"
 	"github.com/shurcooL/github_flavored_markdown/gfmstyle"
 	"github.com/urfave/cli/v2"
+
 )
 
 const (
 	name     = "memo"
-	version  = "0.0.13"
+	version  = "ooic_0.0.13"
 	revision = "HEAD"
 )
 
@@ -168,6 +169,10 @@ var commands = []*cli.Command{
 			},
 		},
 	},
+}
+
+func shellquote(s string) string {
+	return `'` + strings.Replace(s, `'`, `'\''`, -1) + `'`
 }
 
 func (cfg *config) load() error {
@@ -472,10 +477,16 @@ func cmdNew(c *cli.Context) error {
 
 	var title string
 	var file string
+	currentdir, _ := os.Getwd()
+	homedir := os.Getenv("HOME")
+	if strings.HasPrefix(currentdir, homedir){
+		currentdir=strings.Replace(currentdir, homedir, "", 1)
+	}
+	currentdir=escape(currentdir)
 	now := time.Now()
 	if c.Args().Present() {
 		title = c.Args().First()
-		file = now.Format("2006-01-02-") + escape(title) + ".md"
+		file = now.Format("2006-01-02") + currentdir + escape(title) + ".md"
 	} else {
 		fmt.Print("Title: ")
 		scanner := bufio.NewScanner(os.Stdin)
@@ -486,13 +497,7 @@ func cmdNew(c *cli.Context) error {
 			return scanner.Err()
 		}
 		title = scanner.Text()
-		if title == "" {
-			title = now.Format("2006-01-02")
-			file = title + ".md"
-
-		} else {
-			file = now.Format("2006-01-02-") + escape(title) + ".md"
-		}
+		file = now.Format("2006-01-02") + currentdir + escape(title) + ".md"
 	}
 	file = filepath.Join(cfg.MemoDir, file)
 	if fileExists(file) {
