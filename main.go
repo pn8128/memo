@@ -377,7 +377,7 @@ func cmdList(c *cli.Context) error {
 				wi = width
 			}
 			title := runewidth.Truncate(firstline(filepath.Join(cfg.MemoDir, file)), wi-4-col, "...")
-			file = runewidth.FillRight(runewidth.Truncate(file, col, "..."), col)
+			//file = runewidth.FillRight(runewidth.Truncate(file, col, "..."), col)
 			fmt.Fprintf(color.Output, "%s : %s\n", color.GreenString(file), color.YellowString(title))
 		} else {
 			if fullpath {
@@ -486,7 +486,7 @@ func cmdNew(c *cli.Context) error {
 	now := time.Now()
 	if c.Args().Present() {
 		title = c.Args().First()
-		file = now.Format("2006-01-02") + currentdir + escape(title) + ".md"
+		file = now.Format("2006-01-02") + currentdir +"-"+ escape(title) + ".md"
 	} else {
 		fmt.Print("Title: ")
 		scanner := bufio.NewScanner(os.Stdin)
@@ -497,7 +497,7 @@ func cmdNew(c *cli.Context) error {
 			return scanner.Err()
 		}
 		title = scanner.Text()
-		file = now.Format("2006-01-02") + currentdir + escape(title) + ".md"
+		file = now.Format("2006-01-02") + currentdir +"-"+ escape(title) + ".md"
 	}
 	file = filepath.Join(cfg.MemoDir, file)
 	if fileExists(file) {
