@@ -14,7 +14,7 @@ USAGE:
    memo [global options] command [command options] [arguments...]
 
 VERSION:
-   pn8128_0.0.4
+   pn8128_0.0.13
 
 COMMANDS:
      new, n     create memo
