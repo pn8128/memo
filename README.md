@@ -1,8 +1,12 @@
-# memo
+# memo_custormized_ver
 
-Memo Life For You
+this repository is custormized version of [memo command](https://github.com/mattn/memo)
 
 ![Memo Life For You](https://raw.githubusercontent.com/mattn/memo/master/screenshot.gif)
+
+## changes
+
+this memo commands can add current repository name to the filename.
 
 ## Usage
 
@@ -34,7 +38,7 @@ GLOBAL OPTIONS:
 ## Installation
 
 ```
-$ go get github.com/mattn/memo
+$ go get github.com/pn8128/memo
 ```
 
 Let's start create memo file.
