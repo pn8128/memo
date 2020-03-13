@@ -35,7 +35,7 @@ import (
 
 const (
 	name     = "memo"
-	version  = "ooic_0.0.13"
+	version  = "pn8128_0.0.13"
 	revision = "HEAD"
 )
 
